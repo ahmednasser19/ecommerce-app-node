@@ -56,11 +56,9 @@ export const login = async (
   }
 
   if (!compareSync(password, user.password)) {
-    next(
-      new BadRequestsException(
-        "Password is incorrect!",
-        ErrorCode.PASSWORD_IS_INCORRECT
-      )
+    throw new BadRequestsException(
+      "Password is incorrect!",
+      ErrorCode.PASSWORD_IS_INCORRECT
     );
   }
 
@@ -74,4 +72,9 @@ export const login = async (
 
     res.json({ user, token });
   }
+};
+
+// /me -> return the logged in user
+export const me = async (req: any, res: Response) => {
+  res.json(req.user);
 };
